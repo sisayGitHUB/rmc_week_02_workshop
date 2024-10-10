@@ -1,0 +1,158 @@
+---
+title: "Burden of Disease Report"
+subtitle: "Collaborative GitHub and RMarkdown Practice"
+author: "The GRAPH Courses Team"
+output: prettydoc::html_pretty
+---
+
+# Introduction
+
+In this workshop, you will work collaboratively in groups of 3 to create a report on the burden of disease for three countries of your choice. The goal is to practice collaborative coding using GitHub, and creating a modular R Markdown report. We have created a minimal example of report [here](https://github.com/the-graph-courses/misc_public/blob/main/rmc_week_02_workshop/rmd/burden_of_disease_report.md).
+
+## Report Structure
+
+Note that the example report is divided into 3 major subsections:
+
+1.  Communicable, Maternal, Neonatal, and Nutritional Disease Burden (CMNN)
+
+2.  Non-Communicable Disease Burden (NCD)
+
+3.  Overall Disease Burden
+
+You and your group members will work together to do the analysis, and each group member will be responsible for one section of the report. If you have only 2 group members, you will only have to complete the first two sections.
+
+## Collaboration workflow
+
+All group members will be pushing and pulling from the same GitHub repo.
+
+![](images/clone_team_coding.png){width="589"}
+
+As you may remember from the lesson, merge conflicts can happen when multiple collaborators are working on the same document. To avoid merge conflicts, each member will work on a separate section in separate Rmd files. By splitting the full report into shorter documents, each member can work on their own document without disturbing the others.
+
+1.  **Partner 1 (Repo Owner)** - Section 1: CMNN burden
+
+2.  **Partner 2** - Section 2: NCD burden
+
+3.  **Partner 3** - Section 3: Overall burden
+
+Each group member should take responsibility for completing one of these child documents. When everyone is done, each section will be automatically compiled into one report using a special feature of R Markdown called **child documents** (explained below).
+
+# Parent and Child documents
+
+A single long R Markdown file quickly becomes unwieldy and makes collaboration difficult. We address this by breaking the document up into multiple “child” documents and sourcing these child documents in a "parent" document. Child documents generally represent major subsections of the document.
+
+Example project directory:
+
+-   **data** – *store data as CSVs*
+
+-   **rmd** – *save all Rmd scripts here*
+
+    -   main_analysis_file.Rmd [parent]
+
+    -   analysis-part1.Rmd [child]
+
+    -   analysis-part2.Rmd [child]
+
+    -   analysis-part3.Rmd [child]
+
+Our rmd folder for today looks like this, with one parent Rmd and 3 child Rmds:
+
+![](images/clipboard-1984863374.png)
+
+Since we’ve organised the three report sections into individual child Rmd files, all we need to do is to “source” these Rmd files into the “parent” file.
+
+We can call the child documents into the main parent document via the **`knitr`** chunk option **`child`**. The `child` option takes a character vector of paths to the child documents, e.g., `{r child=c('one.Rmd', 'two.Rmd')}`.
+
+In our case, we need only one empty code chunk in the parent Rmd, with a `child` chunk option that looks like this:
+
+![](images/clipboard-704714772.png)
+
+This has already been filled in for you in "daly_report_PARENT.Rmd", so you need not make any changes to that document other than adding author names and country names.
+
+# TASK 1: FORK AND CLONE THE REPO
+
+We will provide a repository for this workshop, hosted on the GRAPH Courses GitHub. Partner 1 will then create a forked copy of the original, and all group members will use that to complete the exercise. Detailed steps are outlined below.
+
+![](images/git_diagram_fork_clone.png){width="543"}
+
+Before we get started, everyone should **log in to your GitHub accounts and have GitHub Desktop ready to go!**
+
+## Fork original repo (Partner 1)
+
+Pick one group member to be the repo "owner" (Partner 1). They will fork the template repository from here: <https://github.com/the-graph-courses/rmc_week_02_workshop>.
+
+**NOTE**: Please choose someone who is able to screenshare.
+
+![Partner 1 (Repo owner) should fork the repo from the TGC GitHub link above. Other group members should NOT do this step.](images/fork_tgc_repo.png)
+
+## Add collaborators (Partner 1)
+
+Then they will add the other group members as collaborators on the forked repo.
+
+![In the newly forked repo, Partner 1 will go to Settings \> Collaborators \> Add people](images/collaborators_step_01.png)
+
+![Enter the username or email for Partner 2. Repeat the process for Partner 3.](images/collaborators_step_02.png)
+
+## Accept collaboration invite (Partners 2 & 3)
+
+![Invitations will be pending until the other users accept the invitation. Partners 2 & 3 should check their email or GitHub notifications to accept the invite.](images/collaborators_step_03.png)
+
+## Clone the repo to local computers (Everyone)
+
+All group members should then clone the repo to their local machines.
+
+![](images/clone_github_desktop.png)
+
+# TASK 2: CHOOSE THREE COUNTRIES
+
+As a group, decide on three countries you want to analyze and compare in your report. Make sure each group member knows which countries were selected.
+
+# TASK 3: COMPLETE THE CHILD DOCUMENTS
+
+The "rmd" folder of the repo contains a main RMarkdown file `daly_report_PARENT.Rmd` which includes three child documents:
+
+1.  `01_cmnn_burden_CHILD.Rmd`: This document will compare the DALY burden of communicable, maternal, neonatal, and nutritional diseases for the three countries.
+
+2.  `02_ncd_burden_CHILD.Rmd`: This document will compare the DALY burden of non-communicable diseases for the three countries.
+
+3.  `03_overall_burden_CHILD.Rmd`: This document will compare the overall DALY burden for the three countries.
+
+If there are three group members, each person should complete one child document. If there are two group members, you should only complete the first two child documents.
+
+Read the commented instructions in your assigned child document and fill in the code for each code chunk, analyzing the DALY burden for the three countries. Main steps to complete the analysis are:
+
+1.  Load packages and import data (this code is pre-filled for you)
+
+2.  Filter the data to your three chosen countries.
+
+3.  Pivot the dataset.
+
+4.  Render a table with `kable()`.
+
+5.  Plot a line graph showing trends over time.
+
+6.  Write a few sentences to summarize your findings.
+
+Each group member should complete these steps, **commit** their changes, and **push** to the remote repo that Partner 1 created.
+
+# TASK 4: RENDER THE MAIN REPORT
+
+Once all group members have completed and pushed their child documents, the repo owner (Partner 1) should pull everyone's changes. After pulling, check that all child documents are filled with the appropriate code.
+
+Then render the main `daly_report_PARENT.Rmd` which will include the completed child docs. There is no need to add any of your code to this document, as the chunk options will import the code from the child documents. You should get an output document called `daly_report_PARENT.md`.
+
+Make sure that only key outputs are displayed in the main report, not the code or package loading messages. The render output should be in **github_document** format.
+
+Partner 1 should then commit and push the final rendered report to GitHub. The other group members can then pull the changes, and the rendered document should appear in your local files.
+
+Finally, go online to your repo and check that the report renders correctly. The images and tables should be visible, as shown in the example report.
+
+# TASK 5: SUBMIT
+
+To submit, each group member should should upload the link to the groups GitHub repo as a **text file** (.txt, .docx, .Rmd, or .R).
+
+This link will be for the same repo for all group members. But each group member should submit the link individually, so that your submission is recorded. From the commit history, we will be able to see who contributed to the repo.
+
+# CHALLENGE (OPTIONAL)
+
+If your groups finishes early, try to calculate and add a plot showing the *cumulative* DALY burden for the three countries over time, for each of the three burden estimate types.
