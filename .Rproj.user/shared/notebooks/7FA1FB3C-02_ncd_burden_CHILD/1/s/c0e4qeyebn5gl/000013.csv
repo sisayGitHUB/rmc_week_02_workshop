@@ -1,0 +1,6 @@
+"0","# Filter the dataset to include only the three countries chosen by your group."
+"0","data_ncd_mini <- data_ncd %>%"
+"0","  filter(Entity %in% c(""India"",""China"",""Ghana"",""Ethiopia"")) %>%"
+"0"," rename(DALY = colnames( data_ncd)[4]) %>%"
+"0","  select(-Code)"
+"0","  "

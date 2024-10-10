@@ -1,5 +1,0 @@
-"0","# Here render a table for the DALY burden over time for the three countries. "
-"0","# You should pivot the data wider to show each country in a separate column."
-"0","data_ncd_wide <- knitr::kable(data_ncd_mini, col.names = c(""India"",""China"",""Ghana"",""Ethiopia""))"
-"0","View(data_ncd_wide)"
-"0","# Use kable() from the knitr package to render the table."
