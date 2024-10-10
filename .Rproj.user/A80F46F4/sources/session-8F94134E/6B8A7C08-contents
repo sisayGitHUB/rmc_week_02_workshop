@@ -1,4 +1,10 @@
-Non-Communicable Disease Burden (NCD)
+---
+title: "Burden of Disease Report"
+subtitle: "Non-Communicable Disease Burden (NCD)"
+author: "Sisay Wondaya" 
+output: rmarkdown::github_document
+date: "`r Sys.Date()`"
+---
 
 ```{r }
 # Load necessary packages
